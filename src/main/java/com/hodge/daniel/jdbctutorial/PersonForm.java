@@ -16,6 +16,8 @@ public class PersonForm {
     private JEditorPane commentField;
     private JButton saveButton;
     private JPanel mainPanel;
+    private JButton selectAllButton;
+    private JButton findButton;
     private AtomicLong idGenerator = new AtomicLong(Math.round(Math.random() * 1000000000));
 
     public PersonForm() {
@@ -24,6 +26,18 @@ public class PersonForm {
             public void actionPerformed(ActionEvent e) {
                 System.out.println("this is a test");
                 createPerson();
+            }
+        });
+        selectAllButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                selectAll();
+            }
+        });
+        findButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                find();
             }
         });
     }
@@ -44,6 +58,14 @@ public class PersonForm {
                     "Error Parsing Date...",
                     TrayIcon.MessageType.ERROR.ordinal());
         }
+    }
+
+    public void selectAll() {
+        new PersonRepository().printPerson();
+    }
+
+    public void find() {
+        new PersonRepository().find(this.firstNameField.getText());
     }
 
     public static void main(String[] args) {
